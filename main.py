@@ -33,7 +33,7 @@ sdr.close()
 
 s = zeros(N)
 for j in range(1, N):
-    q = iq[j] * conj(iq[j-1])
+    q = iq[j] * conj(iq[j - 1])
     s[j] = arctan2(q.imag, q.real)
 
 S = fft(s)
@@ -46,32 +46,29 @@ for j in range(-N // 2, N // 2):
 
 o = argsort(t)
 
-plt.figure()
-plt.title("IQ baseband signal")
+plt.figure("IQ baseband signal")
 plt.plot(t[o], iq[o].real, label="real")
 plt.plot(t[o], iq[o].imag, label="imag")
 plt.xlabel("t / s")
 plt.grid()
 plt.legend()
 
-plt.figure()
-plt.title("Phase-demodulated signal")
+plt.figure("Phase-demodulated signal")
 plt.plot(t[o], s[o])
 plt.xlabel("t / s")
 plt.grid()
 
-plt.figure()
-plt.title("Spectrum of phase-demodulated signal")
+plt.figure("Spectrum of phase-demodulated signal")
 plt.xlim([-B / 4 / kHz, B / 2 / kHz])
 plt.plot(f[o] / kHz, abs(S[o]) / S_max)
 plt.xlabel("f / kHz")
 plt.grid()
 plt.ylim([-0.1, 1.1])
 plt.axvspan(0, 15, facecolor="red", alpha=0.1)
-plt.annotate('L+R', xy=(4, 0.925))
+plt.annotate('L+R', xy=(5, 0.925))
 plt.axvspan(23, 37.5, facecolor="green", alpha=0.1)
-plt.annotate('L-R', xy=(27, 0.925))
+plt.annotate('L-R', xy=(28, 0.925))
 plt.axvspan(38.5, 53, facecolor="green", alpha=0.1)
-plt.annotate('L-R', xy=(42.1, 0.925))
+plt.annotate('L-R', xy=(43.1, 0.925))
 
 plt.show()
